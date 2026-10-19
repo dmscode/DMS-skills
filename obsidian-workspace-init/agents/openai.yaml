@@ -1,0 +1,5 @@
+interface:
+  display_name: "AI 工作区初始化"
+  short_description: "workspace 初始化流程与模板"
+policy:
+  allow_implicit_invocation: true

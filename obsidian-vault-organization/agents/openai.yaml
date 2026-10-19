@@ -1,0 +1,5 @@
+interface:
+  display_name: "笔记仓库文件组织"
+  short_description: "顶层结构、编号规则与文件夹归属"
+policy:
+  allow_implicit_invocation: true

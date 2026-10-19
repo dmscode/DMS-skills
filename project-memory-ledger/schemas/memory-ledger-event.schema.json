@@ -1,0 +1,175 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/project-memory-ledger/memory-ledger-event.schema.json",
+  "title": "Project Memory Ledger event",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "event_id",
+    "timestamp",
+    "memory_id",
+    "event_type",
+    "actor",
+    "reason",
+    "record"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "event_id": {
+      "type": "string",
+      "pattern": "^MEVT-.+"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "memory_id": {
+      "type": "string",
+      "pattern": "^MEM-.+"
+    },
+    "event_type": {
+      "enum": [
+        "create",
+        "verify",
+        "revise",
+        "promote_memory",
+        "promote_agents",
+        "supersede",
+        "reject",
+        "archive",
+        "reopen"
+      ]
+    },
+    "actor": {
+      "type": "string",
+      "minLength": 1
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "record": {
+      "type": "object",
+      "required": [
+        "title",
+        "kind",
+        "status",
+        "claim",
+        "scope",
+        "confidence",
+        "importance",
+        "stability",
+        "evidence_refs",
+        "created_at",
+        "updated_at",
+        "valid_until",
+        "related_ids",
+        "destination",
+        "superseded_by"
+      ],
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": [
+            "project_fact",
+            "decision",
+            "constraint",
+            "pitfall",
+            "lesson",
+            "workflow",
+            "open_question",
+            "preference",
+            "hypothesis",
+            "work_state"
+          ]
+        },
+        "status": {
+          "enum": [
+            "candidate",
+            "verified",
+            "in_memory",
+            "in_agents",
+            "superseded",
+            "rejected",
+            "archived"
+          ]
+        },
+        "claim": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "confidence": {
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "importance": {
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "stability": {
+          "enum": [
+            "volatile",
+            "recurring",
+            "durable"
+          ]
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "valid_until": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "related_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^MEM-.+"
+          }
+        },
+        "destination": {
+          "type": "string"
+        },
+        "superseded_by": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^MEM-.+"
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

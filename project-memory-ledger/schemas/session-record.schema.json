@@ -1,0 +1,166 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/project-memory-ledger/session-record.schema.json",
+  "title": "Project Memory Ledger session record",
+  "oneOf": [
+    {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "record_type",
+        "session_id",
+        "started_at",
+        "source_agent",
+        "capture_status"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "1.0"
+        },
+        "record_type": {
+          "const": "session_start"
+        },
+        "session_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "started_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source_agent": {
+          "type": "string"
+        },
+        "project": {
+          "type": "string"
+        },
+        "capture_status": {
+          "const": "in_progress"
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "record_type",
+        "session_id",
+        "message_id",
+        "sequence",
+        "timestamp",
+        "role",
+        "content"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "1.0"
+        },
+        "record_type": {
+          "const": "message"
+        },
+        "session_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "message_id": {
+          "type": "string",
+          "pattern": "^MSG-[0-9]{6,}$"
+        },
+        "sequence": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "role": {
+          "enum": [
+            "system",
+            "developer",
+            "user",
+            "assistant",
+            "tool"
+          ]
+        },
+        "speaker": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "tool_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tool_call_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "attachments": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "redactions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "record_type",
+        "session_id",
+        "ended_at",
+        "capture_status",
+        "message_count"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "1.0"
+        },
+        "record_type": {
+          "const": "session_end"
+        },
+        "session_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ended_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "capture_status": {
+          "enum": [
+            "complete",
+            "partial",
+            "summary_only"
+          ]
+        },
+        "message_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    }
+  ]
+}

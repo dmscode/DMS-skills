@@ -1,0 +1,5 @@
+interface:
+  display_name: "Obsidian 笔记规范"
+  short_description: "笔记格式与风格规范"
+policy:
+  allow_implicit_invocation: true
